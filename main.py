@@ -1,8 +1,8 @@
-import hit_and_blow
+import Hit_and_Blow
 
 
 def main():
-    HB = hit_and_blow.HitAndBlowGame()
+    HB = Hit_and_Blow.HitAndBlowGame()
     HB.game_start()
 
 
