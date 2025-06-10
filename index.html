@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://pyscript.net/releases/2024.1.1/core.css"
+    />
+    <link rel="stylesheet" href="./assets/css/examples.css" />
+    <script
+      type="module"
+      src="https://pyscript.net/releases/2024.1.1/core.js"
+    ></script>
+    <style>
+      #loading {
+        outline: none;
+        border: none;
+        background: transparent;
+      }
+    </style>
+    <script type="module">
+      const loading = document.getElementById("loading");
+      addEventListener("py:ready", () => loading.close());
+      loading.showModal();
+    </script>
+    <py-config> [[fetch]] from = './' files = ['Hit_and_Blow.py'] </py-config>
+    <title>HIT-and-BLOW</title>
+  </head>
+
+  <body>
+    <script type="py" src="./main.py"></script>
+    <dialog id="loading">
+      <h1>Loading...</h1>
+    </dialog>
+    <div class="header">
+      <h1>Hit & Blow</h1>
+    </div>
+    <div class="your-number">
+      <h3 id="your-number">Your Number</h3>
+    </div>
+    <form id="inputForm">
+      <input
+        type="text"
+        id="first-digit"
+        maxlength="1"
+        class="digit-box"
+        required
+      />
+      <input
+        type="text"
+        id="second-digit"
+        maxlength="1"
+        class="digit-box"
+        required
+      />
+      <input
+        type="text"
+        id="third-digit"
+        maxlength="1"
+        class="digit-box"
+        required
+      />
+      <input class="btn btn-border" type="submit" value="  決定  " />
+    </form>
+    <div class="itemArea">
+      <h2>Item :</h2>
+      <button class="btn btn-border" id="shuffleBtn">Shuffle</button>
+      <button class="btn btn-border" id="shotBtn">Shot</button>
+      <button class="btn btn-border" id="highLowBtn">HighLow</button>
+    </div>
+    <h1 id="result"></h1>
+    <table>
+      <tr>
+        <td>
+          <table border id="player-table">
+            <caption>
+              <h1>YOU</h1>
+            </caption>
+            <tr>
+              <th>Guess</th>
+              <th>Hit</th>
+              <th>Blow</th>
+            </tr>
+          </table>
+        </td>
+        <td>
+          <table border id="cpu-table">
+            <caption>
+              <h1>CPU</h1>
+            </caption>
+            <tr>
+              <th>Guess</th>
+              <th>Hit</th>
+              <th>Blow</th>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+    <br />
+    <button class="btn btn-border" id="newGameBtn">New Game</button>
+  </body>
+</html>

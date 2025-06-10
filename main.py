@@ -1,5 +1,9 @@
+import hit_and_blow
+
+
 def main():
-    print("Hello from hit-and-blow!")
+    HB = hit_and_blow.HitAndBlowGame()
+    HB.game_start()
 
 
 if __name__ == "__main__":
