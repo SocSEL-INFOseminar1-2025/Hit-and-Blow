@@ -1,0 +1,10 @@
+# Ignore uv-related files
+.uv/
+uv.config.*
+uv.lock
+
+# Ignore TOML files
+*.toml
+
+# Ignore Python version file
+.python-version
