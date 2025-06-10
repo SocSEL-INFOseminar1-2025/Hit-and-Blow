@@ -1,0 +1,45 @@
+name: Format code # ワークフローの名前を指定
+
+on: # トリガー条件を指定
+  push:
+    paths:
+      - "**.py"
+
+jobs: # ジョブの定義を開始
+  formatter: # ジョブ名を指定
+    name: Format Python Code # ジョブの表示名
+    runs-on: ubuntu-latest # Ubuntu Linux 上で実行
+    strategy:
+      matrix:
+        python-version: [3.9] # Pythonバージョン3.9を指定
+    permissions:
+      contents: write # コンテンツに対する書き込み権限を設定
+    steps:
+      - name: Checkout Repository # リポジトリのチェックアウト
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Set up Python ${{ matrix.python-version }} # Python環境のセットアップ
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install Dependencies # 依存関係のインストール
+        run: |
+          python -m pip install --upgrade pip
+          pip install autoflake black isort
+
+      - name: Run autoflake # 未使用のインポートなどを削除
+        run: autoflake -r .
+
+      - name: Run black # コード整形
+        run: black .
+
+      - name: Run isort # インポート順序の整理
+        run: isort .
+
+      - name: Auto Commit Changes # フォーマット後の変更をコミット
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Apply Code Formatter
