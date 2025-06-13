@@ -37,7 +37,7 @@ Pythonという言語で実装していますが，なんとなくわかるよ�
 3. codespacesの"+"（Create a codespace on main）をクリック
 
 
-![alt text](image-1.png)
+![alt text](./.github/image-1.png)
 
 
 ## 実行方法（ローカル環境で実装）
