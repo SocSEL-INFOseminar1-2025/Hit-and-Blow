@@ -84,6 +84,6 @@ kill -9 10128
 コミットおよびプッシュ（コード変更）は **必ずブランチを作成してから** 行ってください
 （codespace上でコミットを行う場合は，コミット時に表示される注意書きの， 新しいブランチにコミットする を押してください．ブランチを作成してから作業を行なっても問題ありません．ブランチ名は自由ですが"作業内容/氏名"を推奨します）
 
-プルリクエストは，テンプレートを用意しているので，[Pull requests](https://github.com/SocSEL-INFOseminar1-2025/rsp-game-go/pulls "rsp-game-go_pulls")から作成することを推奨します
+プルリクエストは，テンプレートを用意しているので，[Pull requests](https://github.com/SocSEL-INFOseminar1-2025/Hit-and-Blow/pulls)から作成することを推奨します
 
 マージ操作は行わないでください
