@@ -20,6 +20,8 @@ class HitAndBlowGame:
         self.cpu_num = ""
         self.is_game_continue = True
 
+        k
+
         # HTMLの要素を取得
         self.player_table = document.getElementById("player-table")
         self.a = document.getElementById("cpu-table")
