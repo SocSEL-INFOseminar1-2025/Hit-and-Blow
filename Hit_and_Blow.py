@@ -38,7 +38,7 @@ class HitAndBlowGame:
         self.highLow_button.addEventListener("click", create_proxy(self.highLow))
 
     def game_start(self, event=None):
-        """ゲームをスタートする時に呼び出し"""
+        """ゲームをスタート時に呼び出し"""
         if event:
             event.preventDefault()
         self.clear_table()
