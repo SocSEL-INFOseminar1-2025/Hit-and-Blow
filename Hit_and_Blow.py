@@ -140,9 +140,9 @@ class HitAndBlowGame:
             self.blow(split_i_num, split_c_num, result)
 
         for re in result:
-            if re == HitAndBlowGame.HitBlowResult.HIT:
-                blow += 1
             if re == HitAndBlowGame.HitBlowResult.BLOW:
+                blow += 1
+            if re == HitAndBlowGame.HitBlowResult.HIT:
                 hit += 1
 
         return hit, blow
