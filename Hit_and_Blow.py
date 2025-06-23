@@ -114,9 +114,9 @@ class HitAndBlowGame:
         # 最初が0にならないようにする
         # CPUが用意する数字が重複しない数字列になるように修正
         for _ in range(3):
-            while True :
+            while True:
                 word = str(random.randint(0, 9))
-                if word in val :
+                if word in val:
                     continue
                 else:
                     break
