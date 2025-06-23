@@ -64,3 +64,35 @@ th {
   background-color: gray;
   color: white;
 }
+
+.memo{
+  display: flex;
+}
+
+.memo-num {
+  position: relative;
+  height: 50px;
+  width: 50px;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 2px black;
+  font-weight: bold;
+}
+
+.memo-num .cross {
+  position: absolute;
+  font-size: 40px;
+  color: red;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.memo-num .circle {
+  position: absolute;
+  font-size: 40px;
+  color: blue;
+  pointer-events: none;
+  opacity: 0;
+}

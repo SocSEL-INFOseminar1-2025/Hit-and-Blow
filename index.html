@@ -70,6 +70,37 @@
     </table>
     <br>
     <button class="btn btn-border" id="newGameBtn">New Game</button>
+
+    <div class="memo">
+        <div class="memo-num">0<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">1<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">2<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">3<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">4<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">5<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">6<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">7<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">8<div class="cross">×</div><div class="circle">○</div></div>
+        <div class="memo-num">9<div class="cross">×</div><div class="circle">○</div></div>
+    </div>
 </body>
+<script>
+    document.querySelectorAll('.memo-num').forEach(num => {
+        num.addEventListener('click', () => {
+            const cross = num.querySelector('.cross');
+            const circle = num.querySelector('.circle');
+            if (cross.style.opacity === '1') {
+                circle.style.opacity = '0';
+                cross.style.opacity = '0';
+            } else if (circle.style.opacity === '1') {
+                circle.style.opacity = '0';
+                cross.style.opacity = '1';
+            } else {
+                circle.style.opacity = '1';
+                cross.style.opacity = '0';
+            }
+        });
+    });
+</script>
 
 </html>
