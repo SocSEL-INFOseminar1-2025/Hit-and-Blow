@@ -221,9 +221,13 @@ class HitAndBlowGame:
     def set_player_num(self):
         """プレイヤーの数字を設定する"""
         # 3桁の数字を入力するまでループ
-        self.player_num = prompt("3桁の数字を入力してください")    
+        self.player_num = prompt("3桁の数字を入力してください")
         while True:
-            next_prompt = "3桁の数字を入力してください\n入力 : " + self.player_num + "\nエラー内容: \n"
+            next_prompt = (
+                "3桁の数字を入力してください\n入力 : "
+                + self.player_num
+                + "\nエラー内容: \n"
+            )
             input_numbers = ""
             input_strings = ""
             duplicates_numbers = ""
@@ -239,11 +243,13 @@ class HitAndBlowGame:
                 self.player_num = input_numbers[0:3]
                 break
             elif len(duplicates_numbers) > 0:
-                next_prompt += "  必要数値の不足 (" + duplicates_numbers + "が重複しています)\n"
+                next_prompt += (
+                    "  必要数値の不足 (" + duplicates_numbers + "が重複しています)\n"
+                )
             else:
                 next_prompt += "  必要数値の不足\n"
             if len(input_strings) > 0:
-                next_prompt += "  数値以外の入力 : \"" + input_strings + "\""
+                next_prompt += '  数値以外の入力 : "' + input_strings + '"'
             self.enable_input_form()
             self.clear_input_form()
             self.player_num = prompt(next_prompt)
