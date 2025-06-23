@@ -112,8 +112,15 @@ class HitAndBlowGame:
         val = ""
 
         # 最初が0にならないようにする
+        # CPUが用意する数字が重複しない数字列になるように修正
         for _ in range(3):
-            val += str(random.randint(0, 9))
+            while True :
+                word = str(random.randint(0, 9))
+                if word in val :
+                    continue
+                else:
+                    break
+            val += word
         return val
 
     def HB_judge(self, input_num):
