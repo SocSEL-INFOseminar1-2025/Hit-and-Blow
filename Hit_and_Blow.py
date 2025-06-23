@@ -123,7 +123,8 @@ class HitAndBlowGame:
             input_num (num): 入力した数値
         """
         input_num_str = str(input_num)
-        for i in range(3 - len(input_num_str)): input_num_str = "0" + input_num_str
+        for i in range(3 - len(input_num_str)):
+            input_num_str = "0" + input_num_str
         return input_num_str
 
     def HB_judge(self, input_num):
