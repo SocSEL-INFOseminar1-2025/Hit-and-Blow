@@ -70,7 +70,7 @@ class HitAndBlowGame:
 
         # プレイヤーの入力とHit数とBLow数をテーブルに追加
         new_row = self.player_table.insertRow(-1)
-        new_row.insertCell(0).textContent = player_input
+        new_row.insertCell(0).textContent = self.num_to_str(player_input)
         new_row.insertCell(1).textContent = p_hit
         new_row.insertCell(2).textContent = p_blow
 
@@ -91,7 +91,7 @@ class HitAndBlowGame:
 
         # CPUの入力とHit数とBLow数をテーブルに追加
         new_row = self.a.insertRow(-1)
-        new_row.insertCell(0).textContent = cpu_input
+        new_row.insertCell(0).textContent = self.num_to_str(cpu_input)
         new_row.insertCell(1).textContent = c_hit
         new_row.insertCell(2).textContent = c_blow
 
@@ -116,6 +116,16 @@ class HitAndBlowGame:
             val += str(random.randint(0, 9))
         return val
 
+    def num_to_str(self, input_num):
+        """入力した数字の、3桁での文字列表現を返す
+        1,2桁の整数値に対しては先頭を0で埋めて返す
+        Args:
+            input_num (num): 入力した数値
+        """
+        input_num_str = str(input_num)
+        for i in range(3 - len(input_num_str)): input_num_str = "0" + input_num_str
+        return input_num_str
+
     def HB_judge(self, input_num):
         """入力した数字のHとBを返す
 
@@ -124,7 +134,7 @@ class HitAndBlowGame:
         """
         hit = 0
         blow = 0
-        split_i_num = [int(num) for num in str(input_num)]
+        split_i_num = [int(num) for num in self.num_to_str(input_num)]
         result = [
             HitAndBlowGame.HitBlowResult.NONE,
             HitAndBlowGame.HitBlowResult.NONE,
