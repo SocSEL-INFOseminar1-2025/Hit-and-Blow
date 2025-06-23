@@ -22,7 +22,7 @@ class HitAndBlowGame:
 
         # HTMLの要素を取得
         self.player_table = document.getElementById("player-table")
-        self.a = document.getElementById("cpu-table")
+        self.cpu_table = document.getElementById("cpu-table")
         self.input_form = document.getElementById("inputForm")
         self.result = document.getElementById("result")
         self.new_game_button = document.getElementById("newGameBtn")
@@ -90,7 +90,7 @@ class HitAndBlowGame:
         c_hit, c_blow = self.HB_judge(cpu_input)
 
         # CPUの入力とHit数とBLow数をテーブルに追加
-        new_row = self.a.insertRow(-1)
+        new_row = self.cpu_table.insertRow(-1)
         new_row.insertCell(0).textContent = cpu_input
         new_row.insertCell(1).textContent = c_hit
         new_row.insertCell(2).textContent = c_blow
@@ -290,7 +290,7 @@ class HitAndBlowGame:
         c_hit, c_blow = self.HB_judge(cpu_input)
 
         # CPUの入力とHit数とBLow数をテーブルに追加
-        new_row = self.a.insertRow(-1)
+        new_row = self.cpu_table.insertRow(-1)
         new_row.insertCell(0).textContent = cpu_input
         new_row.insertCell(1).textContent = c_hit
         new_row.insertCell(2).textContent = c_blow
@@ -330,7 +330,7 @@ class HitAndBlowGame:
         c_hit, c_blow = self.HB_judge(cpu_input)
 
         # CPUの入力とHit数とBLow数をテーブルに追加
-        new_row = self.a.insertRow(-1)
+        new_row = self.cpu_table.insertRow(-1)
         new_row.insertCell(0).textContent = cpu_input
         new_row.insertCell(1).textContent = c_hit
         new_row.insertCell(2).textContent = c_blow
