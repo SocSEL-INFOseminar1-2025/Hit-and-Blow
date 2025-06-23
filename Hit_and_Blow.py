@@ -19,6 +19,7 @@ class HitAndBlowGame:
         self.turn = 1
         self.cpu_num = ""
         self.is_game_continue = True
+        self.test = False
 
         # HTMLの要素を取得
         self.player_table = document.getElementById("player-table")
@@ -51,6 +52,11 @@ class HitAndBlowGame:
         self.is_game_continue = True
         print(f"自分の数字: {self.player_num}")
         print(f"cpuの数字: {self.cpu_num}")
+
+        cpu_num = document.getElementById("cpu-number")
+        if cpu_num != None:
+            test = True
+            cpu_num.innerText = "CPU Number : " + self.cpu_num
 
     def input_method(self, event):
         """
