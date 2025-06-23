@@ -57,7 +57,7 @@ class HitAndBlowGame:
         self.shot_button.innerText = "Shot"
         self.highLow_button.innerText = "HighLow"
         self.shuffle_button.innerText = "Shuffle"
-        
+
         self.shot_button.classList.remove("used-btn")
         self.highLow_button.classList.remove("used-btn")
         self.shuffle_button.classList.remove("used-btn")
@@ -245,9 +245,6 @@ class HitAndBlowGame:
         self.player_num = int("".join(num_list))
         your_num = document.getElementById("your-number")
         your_num.innerText = "Your Number : " + str(self.player_num)
-        
-        
-        
 
         self.special_ability_used = True
         self.shot_button.disabled = True
@@ -298,15 +295,20 @@ class HitAndBlowGame:
     def shot(self, event=None):
         """３桁のうちランダムで一つの数字がわかる"""
 
-        
         position = random.randint(0, 2)  # 0, 1, 2のいずれかをランダムに選ぶ
         revealed_digit = self.cpu_num[position]
-        alert(f"Revealed digit at position {position + 1}番目の数字は: {revealed_digit}")
+        alert(
+            f"Revealed digit at position {position + 1}番目の数字は: {revealed_digit}"
+        )
 
         self.special_ability_used = True  # Special Abilityを使用済みにする
-        self.shot_button.disabled = True  # Special Abilityを使用したら、Shotボタンを無効にする
+        self.shot_button.disabled = (
+            True  # Special Abilityを使用したら、Shotボタンを無効にする
+        )
         self.highLow_button.disabled = True  # Special Abilityを使用したら、HighLow
-        self.shuffle_button.disabled = True  # Special Abilityを使用したら、Shuffleボタンを無効にする
+        self.shuffle_button.disabled = (
+            True  # Special Abilityを使用したら、Shuffleボタンを無効にする
+        )
         self.shot_button.innerText = "使用済み"
         self.highLow_button.innerText = "使用済み"
         self.shuffle_button.innerText = "使用済み"
@@ -314,7 +316,6 @@ class HitAndBlowGame:
         self.highLow_button.classList.add("used-btn")
         self.shuffle_button.classList.add("used-btn")
 
-        
         self.turn += 1
 
         # プレイヤーの入力とHit数とBLow数をテーブルに追加
@@ -352,23 +353,26 @@ class HitAndBlowGame:
     def highLow(self, event=None):
         """3桁の数字のうち、一番大きい数字と一番小さい数字を教える"""
 
-        
-        
         min_digit = min(str(self.cpu_num))
         max_digit = max(str(self.cpu_num))
         alert(f"一番小さい数字は: {min_digit} 一番大きい数字は: {max_digit}です")
-        
+
         self.special_ability_used = True  # Special Abilityを使用済みにする
-        self.shot_button.disabled = True  # Special Abilityを使用したら、Shotボタンを無効にする
-        self.highLow_button.disabled = True  # Special Abilityを使用したら、HighLowボタンを無効にする
-        self.shuffle_button.disabled = True  # Special Abilityを使用したら、Shuffleボタンを無効にする
+        self.shot_button.disabled = (
+            True  # Special Abilityを使用したら、Shotボタンを無効にする
+        )
+        self.highLow_button.disabled = (
+            True  # Special Abilityを使用したら、HighLowボタンを無効にする
+        )
+        self.shuffle_button.disabled = (
+            True  # Special Abilityを使用したら、Shuffleボタンを無効にする
+        )
         self.shot_button.innerText = "使用済み"
         self.highLow_button.innerText = "使用済み"
         self.shuffle_button.innerText = "使用済み"
         self.shot_button.classList.add("used-btn")
         self.highLow_button.classList.add("used-btn")
         self.shuffle_button.classList.add("used-btn")
-
 
         # プレイヤーの入力とHit数とBLow数をテーブルに追加
         new_row = self.player_table.insertRow(-1)
