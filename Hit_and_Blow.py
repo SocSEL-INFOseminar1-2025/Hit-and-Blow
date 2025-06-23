@@ -8,7 +8,7 @@ from pyodide.ffi import create_proxy
 
 class HitAndBlowGame:
     class HitBlowResult(Enum):
-        HIT = 1
+        HIT = 2
         BLOW = 1
         NONE = 0
 
@@ -163,7 +163,7 @@ class HitAndBlowGame:
         """
         for i in range(3):
             if split_num[i] == split_i_num[i]:
-                result[i] = result[i] + HitAndBlowGame.HitBlowResult.HIT
+                result[i] = HitAndBlowGame.HitBlowResult.HIT
 
     def blow(self, split_i_num, split_num, result):
         """ブローしているかの判定
@@ -182,7 +182,7 @@ class HitAndBlowGame:
                 if j in used_indices:
                     continue
                 if split_num[i] == split_i_num[j]:
-                    result[i] = result[i] + HitAndBlowGame.HitBlowResult.BLOW
+                    result[i] = HitAndBlowGame.HitBlowResult.BLOW
                     used_indices.append(j)
 
     def clear_table(self):
