@@ -42,6 +42,13 @@ button {
   font-size: 16px;
   cursor: pointer;
 }
+
+.used-btn{
+  background-color: #dcdcdc;
+  color: #888;
+  cursor: not-allowed;
+}
+
 input[type="submit"] {
   vertical-align: middle;
   height: 50px;
