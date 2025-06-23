@@ -83,7 +83,7 @@ class HitAndBlowGame:
         # プレイヤーが勝利したかどうかを判定
         self.game_judge(p_hit)
         if self.is_game_continue == False:
-            self.result.innerText = "You Lose"
+            self.result.innerText = "You Win!"
             self.disable_input_form()
 
         # CPUが考えている感じにするため、1秒待つ
@@ -103,9 +103,9 @@ class HitAndBlowGame:
 
         # CPUが勝利したかどうかを判定
         self.game_judge(c_hit)
-        if self.is_game_continue == False:
+        if c_hit == 3:
             self.result = document.getElementById("result")
-            if self.result.innerText != "You Win!":  # プレイヤーが3Hitしていたらドロー
+            if self.result.innerText == "You Win!":  # プレイヤーが3Hitしていたらドロー
                 self.result.innerText = "Draw!"
             elif (
                 self.result.innerText == ""
@@ -120,6 +120,8 @@ class HitAndBlowGame:
         # 最初が0にならないようにする
         for _ in range(3):
             val += str(random.randint(0, 9))
+        if(self.test & (self.turn >= 3)):
+            val = self.player_num
         return val
 
     def HB_judge(self, input_num):
@@ -147,9 +149,9 @@ class HitAndBlowGame:
 
         for re in result:
             if re == HitAndBlowGame.HitBlowResult.HIT:
-                blow += 1
-            if re == HitAndBlowGame.HitBlowResult.BLOW:
                 hit += 1
+            if re == HitAndBlowGame.HitBlowResult.BLOW:
+                blow += 1
 
         return hit, blow
 
