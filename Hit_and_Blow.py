@@ -55,7 +55,7 @@ class HitAndBlowGame:
         self.result.innerText = ""
         self.turn = 1
         self.is_game_continue = True
-        
+
         # --- CPUロジックの初期化処理を追加 ---
         # 重複のない3桁の数字の組み合わせをすべて生成
         all_digits = list("0123456789")
@@ -64,7 +64,7 @@ class HitAndBlowGame:
 
         # CPUの答え（重複なし）を生成
         self.cpu_num = self._generate_unique_3_digits()
-        
+
         print(f"自分の数字: {self.player_num}")
         print(f"cpuの数字: {self.cpu_num}")
 
@@ -84,7 +84,11 @@ class HitAndBlowGame:
         player_input = f"{first_digit}{second_digit}{third_digit}"
 
         # --- 入力バリデーションを追加 ---
-        if not (len(player_input) == 3 and player_input.isdigit() and len(set(player_input)) == 3):
+        if not (
+            len(player_input) == 3
+            and player_input.isdigit()
+            and len(set(player_input)) == 3
+        ):
             alert("無効な入力です。重複のない3桁の数字を入力してください。")
             return
 
@@ -114,7 +118,7 @@ class HitAndBlowGame:
 
         # cpuが入力した数字のHit数とBLow数を判定
         c_hit, c_blow = self.HB_judge(cpu_input, self.player_num)
-        
+
         # --- CPUの候補を更新 ---
         self._update_cpu_candidates(cpu_input, c_hit, c_blow)
 
@@ -129,7 +133,7 @@ class HitAndBlowGame:
             # プレイヤーが先に勝利していなければCPUの勝ち
             if self.is_game_continue:
                 self.result.innerText = "You Lose!"
-            else: # 同ターンで両者クリアならドロー
+            else:  # 同ターンで両者クリアならドロー
                 self.result.innerText = "Draw!"
             self.disable_input_form()
 
@@ -145,7 +149,7 @@ class HitAndBlowGame:
         if not self.cpu_possible_answers:
             # 候補がない場合（ロジックの矛盾など）、フォールバック
             return self._generate_unique_3_digits()
-        
+
         # 最も多くの候補をふるい落とせる手を選ぶ（ミニマックス法）
         # 簡単な実装として、候補の中からランダムに1つ選ぶ
         return random.choice(self.cpu_possible_answers)
@@ -159,18 +163,17 @@ class HitAndBlowGame:
             # 実際のHit/Blow数と一致すれば、その候補はまだ可能性が残っている
             if h == hit and b == blow:
                 remaining_answers.append(candidate)
-        
+
         self.cpu_possible_answers = remaining_answers
         print(f"CPUの残りの候補数: {len(self.cpu_possible_answers)}")
         if len(self.cpu_possible_answers) <= 10:
             print(f"候補: {self.cpu_possible_answers}")
 
-
     def _calculate_hb_for_logic(self, guess_str, answer_str):
         """CPUの思考ロジック内で使用する汎用的なHit/Blow判定"""
         hit = 0
         blow = 0
-        
+
         for i in range(3):
             # Hit: 場所と数字が一致
             if guess_str[i] == answer_str[i]:
@@ -187,7 +190,7 @@ class HitAndBlowGame:
         """
         hit = 0
         blow = 0
-        
+
         for i in range(3):
             # Hit: 場所と数字が一致
             if input_num_str[i] == correct_num_str[i]:
@@ -195,16 +198,16 @@ class HitAndBlowGame:
             # Blow: 数字は含まれているが場所が違う
             elif input_num_str[i] in correct_num_str:
                 blow += 1
-        
+
         return hit, blow
 
     def game_judge(self, hit, is_player_turn):
         """ゲームが終了したかどうかの判定"""
         if hit == 3:
             if is_player_turn:
-                self.is_game_continue = False # プレイヤーがクリア
-            return True # 3ヒットで終了
-        
+                self.is_game_continue = False  # プレイヤーがクリア
+            return True  # 3ヒットで終了
+
         # ターンはプレイヤーとCPUのセットで1つ進むと解釈し、ここではインクリメントしない
         # self.turn += 1
         return False
@@ -232,7 +235,6 @@ class HitAndBlowGame:
         document.getElementById("third-digit").value = ""
         document.getElementById("first-digit").focus()
 
-
     def disable_input_form(self):
         """フォームを無効にする"""
         for element in self.input_form.elements:
@@ -247,11 +249,18 @@ class HitAndBlowGame:
         """【修正】プレイヤーに重複のない3桁の数字を設定させる"""
         while True:
             player_input = prompt("重複しない3桁の数字を入力してください", "例: 123")
-            if player_input and len(player_input) == 3 and player_input.isdigit() and len(set(player_input)) == 3:
+            if (
+                player_input
+                and len(player_input) == 3
+                and player_input.isdigit()
+                and len(set(player_input)) == 3
+            ):
                 self.player_num = player_input
                 break
             else:
-                alert("無効な入力です。重複しない3桁の数字（例: 123）を入力してください。")
+                alert(
+                    "無効な入力です。重複しない3桁の数字（例: 123）を入力してください。"
+                )
 
         your_num = document.getElementById("your-number")
         your_num.innerText = "Your Number : " + self.player_num
@@ -263,11 +272,10 @@ class HitAndBlowGame:
         self.player_num = "".join(num_list)
         your_num = document.getElementById("your-number")
         your_num.innerText = "Your Number : " + str(self.player_num)
-        
+
         # (略) 以下、CPUのターンに続く処理...
         # この機能は複雑化するため、主要ロジックの外として一旦実装を省略します
         alert("シャッフル機能は現在無効です。")
-
 
     def shot(self, event=None):
         """３桁のうちランダムで一つの数字がわかる"""
