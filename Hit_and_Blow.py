@@ -37,6 +37,8 @@ class HitAndBlowGame:
         self.shot_button.addEventListener("click", create_proxy(self.shot))
         self.highLow_button.addEventListener("click", create_proxy(self.highLow))
 
+        self.cpu_candidates = [str(i).zfill(3) for i in range(1000)]
+
     def game_start(self, event=None):
         """ゲームをスタート時に呼び出し"""
         if event:
@@ -47,7 +49,7 @@ class HitAndBlowGame:
         self.set_player_num()
         self.result.innerText = ""
         self.turn = 1
-        self.cpu_num = self.cpu_input()
+        self.cpu_num = self.cpu_first_input()
         self.is_game_continue = True
         print(f"自分の数字: {self.player_num}")
         print(f"cpuの数字: {self.cpu_num}")
@@ -88,6 +90,7 @@ class HitAndBlowGame:
 
         # cpuが入力した数字のHit数とBLow数を判定
         c_hit, c_blow = self.HB_judge(cpu_input)
+        self.change_cpu_candidate(cpu_input, c_hit, c_blow)
 
         # CPUの入力とHit数とBLow数をテーブルに追加
         new_row = self.a.insertRow(-1)
@@ -107,7 +110,7 @@ class HitAndBlowGame:
                 self.result.innerText = "You Lose!"
             self.disable_input_form()  # これ以上入力させないために、フォームを無効にする
 
-    def cpu_input(self):
+    def cpu_first_input(self):
         """ランダムに3桁の数字を返す"""
         val = ""
 
@@ -115,6 +118,41 @@ class HitAndBlowGame:
         for _ in range(3):
             val += str(random.randint(0, 9))
         return val
+    
+    def cpu_input(self):
+        return random.choice(self.cpu_candidates)
+    
+    def change_cpu_candidate(self, prev_input, hit, blow):
+        new_candidates = []
+        for candidate in self.cpu_candidates:
+            h, b = self.simulate_judge(str(prev_input), str(candidate))
+            if h == hit and b == blow:
+                new_candidates.append(candidate)
+        self.cpu_candidates = new_candidates
+            
+    def simulate_judge(self, guess, answer):
+        hit = 0
+        blow = 0
+        result = [self.HitBlowResult.NONE] * 3
+
+        for i in range(3):
+            if guess[i] == answer[i]:
+                result[i] = self.HitBlowResult.HIT
+
+        for i in range(3):
+            if result[i] == self.HitBlowResult.HIT:
+                continue
+            for j in range(3):
+                if guess[i] == answer[j] and result[j] == self.HitBlowResult.NONE:
+                    result[j] = self.HitBlowResult.BLOW
+                    break
+
+        for r in result:
+            if r == self.HitBlowResult.HIT: hit += 1
+            elif r == self.HitBlowResult.BLOW: blow += 1
+
+        return hit, blow
+
 
     def HB_judge(self, input_num):
         """入力した数字のHとBを返す
@@ -140,9 +178,9 @@ class HitAndBlowGame:
             self.blow(split_i_num, split_c_num, result)
 
         for re in result:
-            if re == HitAndBlowGame.HitBlowResult.HIT:
-                blow += 1
             if re == HitAndBlowGame.HitBlowResult.BLOW:
+                blow += 1
+            if re == HitAndBlowGame.HitBlowResult.HIT:
                 hit += 1
 
         return hit, blow
