@@ -221,8 +221,21 @@ class HitAndBlowGame:
     def set_player_num(self):
         """プレイヤーの数字を設定する"""
         # 3桁の数字を入力するまでループ
-        self.player_num = prompt("3桁の数字を入力してください")
-        your_num = document.getElementById("your-number")
+        # すべて異なる数字の数字列のみ登録できるように修正
+        while(True):
+            self.player_num = prompt("3桁の数字を入力してください")
+            your_num = document.getElementById("your-number")
+            player_num_int = int(self.player_num)
+            digit1 = player_num_int % 10
+            digit10 = (player_num_int % 100) // 10
+            digit100 = player_num_int // 100
+            
+            if((digit1 == digit10) or (digit10 == digit100) or (digit100 == digit1)):
+                alert("3桁はすべて異なる数字を入力してください。")
+                continue
+            else:
+                break
+            
         your_num.innerText = "Your Number : " + self.player_num
 
     def shuffle(self, event=None):
