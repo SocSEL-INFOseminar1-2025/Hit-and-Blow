@@ -61,9 +61,13 @@ class HitAndBlowGame:
         first_digit = int(document.getElementById("first-digit").value)
         second_digit = int(document.getElementById("second-digit").value)
         third_digit = int(document.getElementById("third-digit").value)
-        
+
         # 3つの数字のうち2つ以上同じ数字なら警告を出し、再入力を求めるように修正
-        if ((first_digit == second_digit) or (second_digit == third_digit) or (third_digit == first_digit)) :
+        if (
+            (first_digit == second_digit)
+            or (second_digit == third_digit)
+            or (third_digit == first_digit)
+        ):
             alert("3桁はすべて異なる数字を入力してください。")
             return
         player_input = first_digit * 100 + second_digit * 10 + third_digit
