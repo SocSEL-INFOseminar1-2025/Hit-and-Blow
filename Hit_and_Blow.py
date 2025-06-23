@@ -120,7 +120,7 @@ class HitAndBlowGame:
         # 最初が0にならないようにする
         for _ in range(3):
             val += str(random.randint(0, 9))
-        if(self.test & (self.turn >= 3)):
+        if self.test & (self.turn >= 3):
             val = self.player_num
         return val
 
