@@ -118,10 +118,10 @@ class HitAndBlowGame:
         for _ in range(3):
             val += str(random.randint(0, 9))
         return val
-    
+
     def cpu_input(self):
         return random.choice(self.cpu_candidates)
-    
+
     def change_cpu_candidate(self, prev_input, hit, blow):
         new_candidates = []
         for candidate in self.cpu_candidates:
@@ -129,7 +129,7 @@ class HitAndBlowGame:
             if h == hit and b == blow:
                 new_candidates.append(candidate)
         self.cpu_candidates = new_candidates
-            
+
     def simulate_judge(self, guess, answer):
         hit = 0
         blow = 0
@@ -148,11 +148,12 @@ class HitAndBlowGame:
                     break
 
         for r in result:
-            if r == self.HitBlowResult.HIT: hit += 1
-            elif r == self.HitBlowResult.BLOW: blow += 1
+            if r == self.HitBlowResult.HIT:
+                hit += 1
+            elif r == self.HitBlowResult.BLOW:
+                blow += 1
 
         return hit, blow
-
 
     def HB_judge(self, input_num):
         """入力した数字のHとBを返す
