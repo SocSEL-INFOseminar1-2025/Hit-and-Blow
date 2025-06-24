@@ -65,9 +65,9 @@ class HitAndBlowGame:
 
         self.clear_input_form()
 
-        self.player_turn(player_input)#playerの処理
+        self.player_turn(player_input)  # playerの処理
 
-        self.cpu_turn()#cpuの処理
+        self.cpu_turn()  # cpuの処理
 
     def cpu_input(self):
         """ランダムに3桁の数字を返す"""
@@ -196,7 +196,7 @@ class HitAndBlowGame:
         your_num.innerText = "Your Number : " + str(self.player_num)
 
         self.turn += 1
-        
+
         self.record(self.player_table, "shuffled", "", "")
 
         self.cpu_turn()
@@ -209,7 +209,7 @@ class HitAndBlowGame:
         self.turn += 1
 
         self.record(self.player_table, "shot", "", "")
-        
+
         self.cpu_turn()
 
     def highLow(self, event=None):
@@ -237,16 +237,16 @@ class HitAndBlowGame:
                 self.result.innerText = "You Lose!"
             else:
                 self.result.innerText = "Draw!"
-            self.disable_input_form()#フォームを無効に
+            self.disable_input_form()  # フォームを無効に
 
     def cpu_turn(self):
-        #cpuの処理
+        # cpuの処理
         time.sleep(1)
         cpu_input = self.cpu_input()
         c_hit, c_blow = self.HB_judge(cpu_input)
         self.record(self.cpu_table, cpu_input, c_hit, c_blow)
 
     def player_turn(self, player_input):
-        #playerの処理
+        # playerの処理
         p_hit, p_blow = self.HB_judge(player_input)
         self.record(self.player_table, player_input, p_hit, p_blow)
