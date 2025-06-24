@@ -222,8 +222,10 @@ class HitAndBlowGame:
         """プレイヤーの数字を設定する"""
         # 3桁の数字を入力するまでループ
         self.player_num = prompt("3桁の数字を入力してください")
-        your_num = document.getElementById("your-number")
-        your_num.innerText = "Your Number : " + self.player_num
+        if(self.player_num != NONE){
+            your_num = document.getElementById("your-number")
+            your_num.innerText = "Your Number : " + self.player_num
+        }
 
     def shuffle(self, event=None):
         """数字をシャッフルする"""
