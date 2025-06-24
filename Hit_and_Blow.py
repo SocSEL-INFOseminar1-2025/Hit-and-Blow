@@ -222,7 +222,7 @@ class HitAndBlowGame:
         """プレイヤーの数字を設定する"""
         # 3桁の数字を入力するまでループ
         self.player_num = prompt("3桁の数字を入力してください")
-        if(self.player_num != NONE){
+        if(self.player_num != None){
             your_num = document.getElementById("your-number")
             your_num.innerText = "Your Number : " + self.player_num
         }
