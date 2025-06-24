@@ -22,7 +22,7 @@ class HitAndBlowGame:
 
         # HTMLの要素を取得
         self.player_table = document.getElementById("player-table")
-        self.a = document.getElementById("cpu-table")
+        self.cpu_table = document.getElementById("cpu-table")
         self.input_form = document.getElementById("inputForm")
         self.result = document.getElementById("result")
         self.new_game_button = document.getElementById("newGameBtn")
@@ -65,47 +65,9 @@ class HitAndBlowGame:
 
         self.clear_input_form()
 
-        # プレイヤーが入力した数字のHit数とBLow数を判定
-        p_hit, p_blow = self.HB_judge(player_input)
+        self.player_turn(player_input)#playerの処理
 
-        # プレイヤーの入力とHit数とBLow数をテーブルに追加
-        new_row = self.player_table.insertRow(-1)
-        new_row.insertCell(0).textContent = player_input
-        new_row.insertCell(1).textContent = p_hit
-        new_row.insertCell(2).textContent = p_blow
-
-        # プレイヤーが勝利したかどうかを判定
-        self.game_judge(p_hit)
-        if self.is_game_continue == False:
-            self.result.innerText = "You Lose"
-            self.disable_input_form()
-
-        # CPUが考えている感じにするため、1秒待つ
-        time.sleep(1)
-
-        # CPUの入力を受け取る
-        cpu_input = self.cpu_input()
-
-        # cpuが入力した数字のHit数とBLow数を判定
-        c_hit, c_blow = self.HB_judge(cpu_input)
-
-        # CPUの入力とHit数とBLow数をテーブルに追加
-        new_row = self.a.insertRow(-1)
-        new_row.insertCell(0).textContent = cpu_input
-        new_row.insertCell(1).textContent = c_hit
-        new_row.insertCell(2).textContent = c_blow
-
-        # CPUが勝利したかどうかを判定
-        self.game_judge(c_hit)
-        if self.is_game_continue == False:
-            self.result = document.getElementById("result")
-            if self.result.innerText != "You Win!":  # プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
-            elif (
-                self.result.innerText == ""
-            ):  # プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
-            self.disable_input_form()  # これ以上入力させないために、フォームを無効にする
+        self.cpu_turn()#cpuの処理
 
     def cpu_input(self):
         """ランダムに3桁の数字を返す"""
@@ -234,39 +196,10 @@ class HitAndBlowGame:
         your_num.innerText = "Your Number : " + str(self.player_num)
 
         self.turn += 1
+        
+        self.record(self.player_table, "shuffled", "", "")
 
-        # プレイヤーの入力とHit数とBLow数をテーブルに追加
-        new_row = self.player_table.insertRow(-1)
-        new_row.insertCell(0).textContent = "shuffled"
-        new_row.insertCell(1).textContent = ""
-        new_row.insertCell(2).textContent = ""
-
-        # CPUが考えている感じにするため、1秒待つ
-        time.sleep(1)
-
-        # CPUの入力を受け取る
-        cpu_input = self.cpu_input()
-
-        # cpuが入力した数字のHit数とBLow数を判定
-        c_hit, c_blow = self.HB_judge(cpu_input)
-
-        # CPUの入力とHit数とBLow数をテーブルに追加
-        new_row = self.cpu_table.insertRow(-1)
-        new_row.insertCell(0).textContent = cpu_input
-        new_row.insertCell(1).textContent = c_hit
-        new_row.insertCell(2).textContent = c_blow
-
-        # CPUが勝利したかどうかを判定
-        self.game_judge(c_hit)
-        if self.is_game_continue == False:
-            self.result = document.getElementById("result")
-            if self.result.innerText != "You Win!":  # プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
-            elif (
-                self.result.innerText == ""
-            ):  # プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
-            self.disable_input_form()  # これ以上入力させないために、フォームを無効にする
+        self.cpu_turn()
 
     def shot(self, event=None):
         """３桁のうちランダムで一つの数字がわかる"""
@@ -275,74 +208,45 @@ class HitAndBlowGame:
 
         self.turn += 1
 
-        # プレイヤーの入力とHit数とBLow数をテーブルに追加
-        new_row = self.player_table.insertRow(-1)
-        new_row.insertCell(0).textContent = "shot"
-        new_row.insertCell(1).textContent = ""
-        new_row.insertCell(2).textContent = ""
-        # CPUが考えている感じにするため、1秒待つ
-        time.sleep(1)
-
-        # CPUの入力を受け取る
-        cpu_input = self.cpu_input()
-
-        # cpuが入力した数字のHit数とBLow数を判定
-        c_hit, c_blow = self.HB_judge(cpu_input)
-
-        # CPUの入力とHit数とBLow数をテーブルに追加
-        new_row = self.a.insertRow(-1)
-        new_row.insertCell(0).textContent = cpu_input
-        new_row.insertCell(1).textContent = c_hit
-        new_row.insertCell(2).textContent = c_blow
-
-        # CPUが勝利したかどうかを判定
-        self.game_judge(c_hit)
-        if self.is_game_continue == False:
-            self.result = document.getElementById("result")
-            if self.result.innerText != "You Win!":  # プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
-            elif (
-                self.result.innerText == ""
-            ):  # プレイヤーが3Hitしていない場合、CPUの勝ち
-                self.result.innerText = "You Lose!"
-            self.disable_input_form()  # これ以上入力させないために、フォームを無効にする
+        self.record(self.player_table, "shot", "", "")
+        
+        self.cpu_turn()
 
     def highLow(self, event=None):
         """3桁の数字のうち、一番大きい数字と一番小さい数字を教える"""
 
         alert("自分で実装してね")
 
-        # プレイヤーの入力とHit数とBLow数をテーブルに追加
-        new_row = self.player_table.insertRow(-1)
-        new_row.insertCell(0).textContent = "HighLow"
-        new_row.insertCell(1).textContent = ""
-        new_row.insertCell(2).textContent = ""
-
         self.turn += 1
 
-        # CPUが考えている感じにするため、1秒待つ
-        time.sleep(1)
+        self.record(self.player_table, "HighLow", "", "")
 
-        # CPUの入力を受け取る
-        cpu_input = self.cpu_input()
+        self.cpu_turn()
 
-        # cpuが入力した数字のHit数とBLow数を判定
-        c_hit, c_blow = self.HB_judge(cpu_input)
+    def record(self, table, label, hit, blow):
+        new_row = table.insertRow(-1)
+        new_row.insertCell(0).textContent = label
+        new_row.insertCell(1).textContent = hit
+        new_row.insertCell(2).textContent = blow
 
-        # CPUの入力とHit数とBLow数をテーブルに追加
-        new_row = self.a.insertRow(-1)
-        new_row.insertCell(0).textContent = cpu_input
-        new_row.insertCell(1).textContent = c_hit
-        new_row.insertCell(2).textContent = c_blow
-
-        # CPUが勝利したかどうかを判定
-        self.game_judge(c_hit)
+        self.game_judge(hit)
         if self.is_game_continue == False:
-            self.result = document.getElementById("result")
-            if self.result.innerText != "You Win!":  # プレイヤーが3Hitしていたらドロー
-                self.result.innerText = "Draw!"
-            elif (
-                self.result.innerText == ""
-            ):  # プレイヤーが3Hitしていない場合、CPUの勝ち
+            if table == self.player_table and hit == 3:
+                self.result.innerText = "You Win!"
+            elif table == self.cpu_table and hit == 3:
                 self.result.innerText = "You Lose!"
-            self.disable_input_form()  # これ以上入力させないために、フォームを無効にする
+            else:
+                self.result.innerText = "Draw!"
+            self.disable_input_form()#フォームを無効に
+
+    def cpu_turn(self):
+        #cpuの処理
+        time.sleep(1)
+        cpu_input = self.cpu_input()
+        c_hit, c_blow = self.HB_judge(cpu_input)
+        self.record(self.cpu_table, cpu_input, c_hit, c_blow)
+
+    def player_turn(self, player_input):
+        #playerの処理
+        p_hit, p_blow = self.HB_judge(player_input)
+        self.record(self.player_table, player_input, p_hit, p_blow)
