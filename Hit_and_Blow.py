@@ -225,7 +225,9 @@ class HitAndBlowGame:
         if(self.player_num != None){
             your_num = document.getElementById("your-number")
             your_num.innerText = "Your Number : " + self.player_num
-        }
+        } 
+        else:
+            continue;
 
     def shuffle(self, event=None):
         """数字をシャッフルする"""
